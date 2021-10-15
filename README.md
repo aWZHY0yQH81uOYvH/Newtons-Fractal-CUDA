@@ -1,0 +1,8 @@
+# Newton's Fractal
+Inspired by [this video](https://www.youtube.com/watch?v=-RdOwhmqP5s). This was just a fun program I felt like writing after watching the video. It has decent realtime performance (on an RTX 3070 at 2048x2048), though I'm sure there's a lot left on the table. The quick and dirty method I'm using to get the results from the CUDA kernel to the SDL window requires multiple memory copies, which isn't great. I also put little to no effort into optimizing the CUDA kenel.
+
+To run this, you'll need pkg-config, SDL2, and the CUDA toolkit (which provides `nvcc`) installed, along with an Nvidia GPU. Once you have that, just run `make run_cuda` and it should work.
+
+Each pixel on the screen (which represents the complex plane) is used as a starting guess for Newton's method of finding the roots of a polynomial. Whichever root the point ends up closest to determines the hue of the pixel and the brightness is determined by how many iterations it takes to get there. By default it's using an 8th order polynomial and the roots are moving around the screen with Perlin noise. Your mouse also repels the roots so you can push them around a bit. The colors for each root are randomized with Perlin noise as well. There are some other settings at the top of the .cu file which I encourage you to play with.
+
+Also included is my test version written in straight C++ (CPU only, doesn't require a GPU) which is relatively very slow. It also doesn't have the mouse repelling thing and is overall less complete.
